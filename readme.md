@@ -18,3 +18,7 @@ Przerobiłem Lab05, zrobiłem zadania w nim zawarte. Kontynułuje prace nad proj
 
 1/21/2025 - 19:25  
 Przerobiłem Lab06, zrobiłem wszystkie zadania, miałem miejsze i większe problemy, ale jakoś udało mi się z nimi uporać. Postanowiłem, że pierw zrobię bazę z materiałów wideo, którą potem stopniowo zacznę przerabiać pod własny pomysł.
+
+1/21/2025 - 22:21  
+Przerobiłem Lab07, zrobiłem wszystkie zadania, nie miałem problemów. Nadrabiam zaległości, po tym jak przed świętami pogubiłem się i nie wiedziałem co robić.  
+

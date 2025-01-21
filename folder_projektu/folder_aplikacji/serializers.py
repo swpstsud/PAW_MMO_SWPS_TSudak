@@ -63,3 +63,24 @@ class TeamSerializer(serializers.ModelSerializer):
         model = Team
         fields = ['id', 'name', 'country']
         read_only_fields = ['id']
+        
+class OsobaSerializer(serializers.ModelSerializer):
+    def validate_imie(self, value):
+        if not value.isalpha():
+            raise serializers.ValidationError("Pole 'imie' musi zawierać tylko litery!!!")
+        return value
+    
+    def validate_nazwisko(self, value):
+        if not value.isalpha():
+            raise serializers.ValidationError("Pole 'nazwisko' musi zawierać tylko litery!!!")
+        return value
+    
+    def validate_data_dodania(self, value):
+        if value > date.today():
+            raise serializers.ValidationError("Pole 'data_dodania' nie może być z przyszłości!!!")
+        return value
+    
+    class Meta:
+        model = Osoba
+        fields = ['id', 'imie', 'nazwisko','plec', 'stanowisko', 'data_dodania']
+        read_only_fields = ['id']
