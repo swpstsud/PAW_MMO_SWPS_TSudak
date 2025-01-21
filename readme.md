@@ -12,5 +12,5 @@ Póki co wszystko idzie jako tako dobrze.
 Kontynuowałem pisanie aplikacji wedle wideo lab_04, którę będę potem edytować pod swój własny pomysł, który już w większość mam sprecyzowany co i jak.    
 Dalszą pracę nad projektem ponawiam jutro.  
   
-1/21/2025 - 15:45
+1/21/2025 - 15:45  
 Przerobiłem Lab05, zrobiłem zadania w nim zawarte. Kontynułuje prace nad projektem zaliczeniowym, który będę przerabiał w pewnej fazie robienia tych zadań.
