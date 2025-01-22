@@ -20,5 +20,7 @@ Przerobiłem Lab05, zrobiłem zadania w nim zawarte. Kontynułuje prace nad proj
 Przerobiłem Lab06, zrobiłem wszystkie zadania, miałem miejsze i większe problemy, ale jakoś udało mi się z nimi uporać. Postanowiłem, że pierw zrobię bazę z materiałów wideo, którą potem stopniowo zacznę przerabiać pod własny pomysł.
 
 1/21/2025 - 22:21  
-Przerobiłem Lab07, zrobiłem wszystkie zadania, nie miałem problemów. Nadrabiam zaległości, po tym jak przed świętami pogubiłem się i nie wiedziałem co robić.  
+Przerobiłem Lab07, zrobiłem wszystkie zadania, nie miałem problemów. Nadrabiam zaległości, po tym jak przed świętami pogubiłem się i nie wiedziałem co robić.
 
+1/22/2025 - 16:09  
+Ukończyłem lab08 wraz z zadaniem samodzielnym na teamy, wszystko jest na main. Powoli zastanawiam się czy zrobić projekt własny jako branch do tego indywidaulnego lub na odwrót, zrobić branch na indywidualny po ukończeniu lab10 i na main zrobić własny projekt. Co do zadania z teams, próbowałem odwzorować persons, co się udało, potem tylko z wyszukiwaniem po ID musiałem zmienić models.py dla teams i zrobić lekki fikołek przy pomocy informacji z internetu i wyszło chyba nawet lepiej niż persons.

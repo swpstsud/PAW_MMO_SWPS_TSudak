@@ -1,9 +1,13 @@
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Osoba, Person, Stanowisko, Team
 from .serializers import OsobaSerializer, PersonSerializer, StanowiskoSerializer
+from django.http import Http404, HttpResponse
+import datetime
+
 
 @api_view(['GET'])
 def person_list(request):
@@ -96,3 +100,58 @@ def stanowisko_detail(request, pk):
     elif request.method == 'DELETE':
         stanowisko.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+def welcome_view(request):
+    now = datetime.datetime.now()
+    html = f"""
+        <html><body>
+        Witaj użytkowniku! </br>
+        Aktualna data i czas na serwerze: {now}.
+        </body></html>"""
+    return HttpResponse(html)
+
+def person_list_html(request):
+    persons = Person.objects.all()
+    return render(request,
+                  "folder_aplikacji/person/list.html",
+                  {'persons': persons})
+    
+def person_detail_html(request, id):
+    person = Person.objects.get(id=id)
+
+    return render(request,
+                  "folder_aplikacji/person/detail.html",
+                  {'person': person})
+    
+def person_detail_html(request, id):
+    try:
+        person = Person.objects.get(id=id)
+    except Person.DoesNotExist:
+        raise Http404("Obiekt Person o podanym id nie istnieje")
+
+    return render(request,
+                  "folder_aplikacji/person/detail.html",
+                  {'person': person})
+    
+def team_list_html(request):
+    teams = Team.objects.all()
+    return render(request,
+                  "folder_aplikacji/team/list.html",
+                  {'teams': teams})
+    
+def team_detail_html(request, id):
+    team = get_object_or_404(Team, id=id)
+
+    return render(request,
+                  "folder_aplikacji/team/detail.html",
+                  {'team': team})
+    
+def team_detail_html(request, id):
+    try:
+        team = Team.objects.get(id=id)
+    except Team.DoesNotExist:
+        raise Http404("Obiekt Team o podanym id nie istnieje")
+
+    return render(request,
+                  "folder_aplikacji/team/detail.html",
+                  {'team': team})

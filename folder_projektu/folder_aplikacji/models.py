@@ -14,8 +14,9 @@ SHIRT_SIZES = (
 
 
 class Team(models.Model):
-    name = models.CharField(max_length=60)
-    country = models.CharField(max_length=2)
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=60, unique=True)
+    country = models.CharField(max_length=5)
 
     def __str__(self):
         return f"{self.name}"
@@ -30,8 +31,7 @@ class Person(models.Model):
     team = models.ForeignKey(Team, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return self.name
-
+        return f"Person: {self.name}, dodana w {self.month_added}, o rozmiarze koszuli {self.shirt_size}. \n"
 
 
 class Osoba(models.Model):
