@@ -2,10 +2,12 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('persons/', views.person_list),
+    path('persons/', views.person_list, name='person_list'),
     path('persons/<int:pk>/', views.person_detail),
-    path('osoby', views.osoba_list),
-    path('osoby/<int:pk>', views.osoba_details),
+    path('persons/update/<int:pk>/', views.person_update),
+    path('persons/delete/<int:pk>/', views.person_delete),
+    path('osoby/', views.osoba_list),
+    path('osoby/<int:pk>/', views.osoba_details),
     path('osoby/search/<str:substring>/', views.osoba_search),
     path('stanowiska/', views.stanowisko_list),
     path('stanowiska/<int:pk>/', views.stanowisko_detail),
@@ -14,4 +16,5 @@ urlpatterns = [
     path('persons_html/<int:id>/', views.person_detail_html),
     path('teams_html/', views.team_list_html),
     path('teams/<int:id>/', views.team_detail_html, name='team_detail'),
+    path('stanowisko/<int:pk>/members/', views.StanowiskoMemberView.as_view()),
 ]

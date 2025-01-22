@@ -24,3 +24,7 @@ Przerobiłem Lab07, zrobiłem wszystkie zadania, nie miałem problemów. Nadrabi
 
 1/22/2025 - 16:09  
 Ukończyłem lab08 wraz z zadaniem samodzielnym na teamy, wszystko jest na main. Powoli zastanawiam się czy zrobić projekt własny jako branch do tego indywidaulnego lub na odwrót, zrobić branch na indywidualny po ukończeniu lab10 i na main zrobić własny projekt. Co do zadania z teams, próbowałem odwzorować persons, co się udało, potem tylko z wyszukiwaniem po ID musiałem zmienić models.py dla teams i zrobić lekki fikołek przy pomocy informacji z internetu i wyszło chyba nawet lepiej niż persons.
+
+1/22/2025 - 20:40  
+Ukończyłem lab09, zabieram się od razu za lab10, ale pierw wstawiam ten commit zawierający wszystko co w nim zrobiłem. Mimo kilku potknięć wszystko działa, nie ma problemów i na spokojnie mogę przejść do ostatniego lab10. Jestem w trakcie finalizacji pomysłu jak kokretnie ma działać i wyglądać mój projekt jako pomysł, który przełoże na program po ukończeniu lab10. Wtedy zaczną się pracę w kierunku projektu własnego.  
+
