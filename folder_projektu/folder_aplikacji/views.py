@@ -6,46 +6,46 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Osoba, Person, Stanowisko, Team
-from .serializers import OsobaSerializer, PersonSerializer, StanowiskoSerializer
+from .models import Osoba, Postacie, Stanowisko, Druzyna
+from .serializers import OsobaSerializer, PostacieSerializer, StanowiskoSerializer, DruzynaSerializer
 from django.http import Http404, HttpResponse
 import datetime
 
 
 @api_view(['GET'])
-def person_list(request):
+def postacie_list(request):
     if request.method == 'GET':
-        persons = Person.objects.all()
-        serializer = PersonSerializer(persons, many=True)
+        postacie = Postacie.objects.all()
+        serializer = PostacieSerializer(postacie, many=True)
     return Response(serializer.data)
 
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
-def person_detail(request, pk):
+def postacie_detail(request, pk):
     try:
-        person = Person.objects.get(pk=pk)
-    except Person.DoesNotExist:
+        postacie = Postacie.objects.get(pk=pk)
+    except Postacie.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        person = Person.objects.get(pk=pk)
-        serializer = PersonSerializer(person)
+        postacie = Postacie.objects.get(pk=pk)
+        serializer = PostacieSerializer(postacie)
         return Response(serializer.data)
 
 
 @api_view(['PUT'])
 @authentication_classes([SessionAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticated])
-def person_update(request, pk):
+def postacie_update(request, pk):
     try:
-        person = Person.objects.get(pk=pk)
-    except Person.DoesNotExist:
+        postacie = Postacie.objects.get(pk=pk)
+    except Postacie.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
-        serializer = PersonSerializer(person, data=request.data)
+        serializer = PostacieSerializer(postacie, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -54,14 +54,14 @@ def person_update(request, pk):
 @api_view(['DELETE'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
-def person_delete(request, pk):
+def postacie_delete(request, pk):
     try:
-        person = Person.objects.get(pk=pk)
-    except Person.DoesNotExist:
+        postacie = Postacie.objects.get(pk=pk)
+    except Postacie.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
     if request.method == 'DELETE':
-        person.delete()
+        postacie.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 @api_view(['GET', 'POST'])
@@ -138,51 +138,51 @@ def welcome_view(request):
         </body></html>"""
     return HttpResponse(html)
 
-def person_list_html(request):
-    persons = Person.objects.all()
+def postacie_list_html(request):
+    postacie = Postacie.objects.all()
     return render(request,
-                  "folder_aplikacji/person/list.html",
-                  {'persons': persons})
+                  "folder_aplikacji/postacie/list.html",
+                  {'postacie': postacie})
     
-def person_detail_html(request, id):
-    person = Person.objects.get(id=id)
+def postacie_detail_html(request, id):
+    postacie = Postacie.objects.get(id=id)
 
     return render(request,
-                  "folder_aplikacji/person/detail.html",
-                  {'person': person})
+                  "folder_aplikacji/postacie/detail.html",
+                  {'postacie': postacie})
     
-def person_detail_html(request, id):
+def postacie_detail_html(request, id):
     try:
-        person = Person.objects.get(id=id)
-    except Person.DoesNotExist:
-        raise Http404("Obiekt Person o podanym id nie istnieje")
+        postacie = Postacie.objects.get(id=id)
+    except Postacie.DoesNotExist:
+        raise Http404("Obiekt Postacie o podanym id nie istnieje")
 
     return render(request,
-                  "folder_aplikacji/person/detail.html",
-                  {'person': person})
+                  "folder_aplikacji/postacie/detail.html",
+                  {'postacie': postacie})
     
-def team_list_html(request):
-    teams = Team.objects.all()
+def druzyna_list_html(request):
+    druzyny = Druzyna.objects.all()
     return render(request,
-                  "folder_aplikacji/team/list.html",
-                  {'teams': teams})
+                  "folder_aplikacji/druzyny/list.html",
+                  {'druzyna': druzyny})
     
-def team_detail_html(request, id):
-    team = get_object_or_404(Team, id=id)
+def druzyna_detail_html(request, id):
+    druzyny = get_object_or_404(Druzyna, id=id)
 
     return render(request,
-                  "folder_aplikacji/team/detail.html",
-                  {'team': team})
+                  "folder_aplikacji/druzyny/detail.html",
+                  {'druzyny': druzyny})
     
-def team_detail_html(request, id):
+def druzyna_detail_html(request, id):
     try:
-        team = Team.objects.get(id=id)
-    except Team.DoesNotExist:
-        raise Http404("Obiekt Team o podanym id nie istnieje")
+        druzyny = Druzyna.objects.get(id=id)
+    except Druzyna.DoesNotExist:
+        raise Http404("Obiekt Druzyna o podanym id nie istnieje")
 
     return render(request,
-                  "folder_aplikacji/team/detail.html",
-                  {'team': team})
+                  "folder_aplikacji/druzyny/detail.html",
+                  {'druzyny': druzyny})
 
 class StanowiskoMemberView(APIView):
     authentication_classes = [TokenAuthentication]

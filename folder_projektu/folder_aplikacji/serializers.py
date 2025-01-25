@@ -1,15 +1,15 @@
 from rest_framework import serializers
-from .models import Person, Team, MONTHS, SHIRT_SIZES, Stanowisko, Osoba
+from .models import Postacie, Druzyna, MONTHS, KLASA_POSTACI, Stanowisko, Osoba
 from datetime import date
 
 
-class PersonSerializer(serializers.Serializer):
+class PostacieSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    name = serializers.CharField(required=True)
-    shirt_size = serializers.ChoiceField(choices=SHIRT_SIZES, default=SHIRT_SIZES[0][0])
+    nazwa_postaci = serializers.CharField(required=True)
+    klasa_postaci = serializers.ChoiceField(choices=KLASA_POSTACI, default=KLASA_POSTACI[0][0])
     month_added = serializers.ChoiceField(choices=MONTHS.choices, default=MONTHS.choices[0][0])
 
-    team = serializers.PrimaryKeyRelatedField(queryset=Team.objects.all())
+    druzyna = serializers.PrimaryKeyRelatedField(queryset=Druzyna.objects.all())
     
     pseudonim = serializers.CharField(required = False)
     
@@ -22,13 +22,13 @@ class PersonSerializer(serializers.Serializer):
         return value
 
     def create(self, validated_data):
-        return Person.objects.create(**validated_data)
+        return Postacie.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.name = validated_data.get('name', instance.name)
-        instance.shirt_size = validated_data.get('shirt_size', instance.shirt_size)
+        instance.nazwa_postaci = validated_data.get('name', instance.nazwa_postaci)
+        instance.klasa_postaci = validated_data.get('klasa_postaci', instance.klasa_postaci)
         instance.month_added = validated_data.get('month_added', instance.month_added)
-        instance.team = validated_data.get('team', instance.team)
+        instance.druzyna = validated_data.get('druzyna', instance.druzyna)
         instance.pseudonim = validated_data.get('pseudonim', instance.pseudonim)
         instance.save()
         return instance
@@ -58,9 +58,9 @@ class StanowiskoSerializer(serializers.Serializer):
         instance.save()
         return instance
     
-class TeamSerializer(serializers.ModelSerializer):
+class DruzynaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Team
+        model = Druzyna
         fields = ['id', 'name', 'country']
         read_only_fields = ['id']
         

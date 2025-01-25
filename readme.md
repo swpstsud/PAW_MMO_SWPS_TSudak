@@ -30,3 +30,7 @@ Ukończyłem lab09, zabieram się od razu za lab10, ale pierw wstawiam ten commi
 
 1/23/2025 - 00:18  
 Ukończyłem lab10 i zarazem ukończyłem cały projekt indywidualny. Teraz zostało go już tylko zapisać na branchu gdzie będzie sobie czekać na termin zaliczenia, a main przejdzie do fazy remontu, w której z projektu indywidualnego przejdzie metamorfoze w całkiem nowy projekt. Jak był nasz nowy dom, to tak będzie nasz nowy projekt z tego bałganu całego. Kolejna aktualizacja będzie o jakimś progresie na projekcie własnym.
+
+1/25/2025 - 22:49  
+Bazując na zapisie lab09 w moim wykonaniu, zacząłem przerabiać modele itp. pod własny projekt aplikacji webowej. Póki co wszystko z "bazy" działa, jutro zamierzam wprowadzić kilka nowych funkcji i zrobić HTML pod to, żeby w poniedziałek przed zaliczeniem wszystko było ogarnięte (jak najlepiej tylko umiem).  
+

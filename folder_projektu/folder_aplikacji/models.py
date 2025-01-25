@@ -7,32 +7,32 @@ MONTHS = models.IntegerChoices('Miesiace', 'Styczeń Luty Marzec Kwiecień Maj C
 
 PLCIE = models.IntegerChoices('PLEC', 'Kobieta Mężczyzna Inna')
 
-SHIRT_SIZES = (
-        ('S', 'Small'),
-        ('M', 'Medium'),
-        ('L', 'Large'),
+KLASA_POSTACI = (
+        ('W', 'Wojownik'),
+        ('M', 'Mistyk'),
+        ('B', 'Bandyta'),
     )
 
 
-class Team(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=60, unique=True)
+class Druzyna(models.Model):
+    id = models.AutoField(primary_key=True, unique=True)
+    name = models.CharField(max_length=80, unique=True)
     country = models.CharField(max_length=5)
 
     def __str__(self):
         return f"{self.name}"
 
 
-class Person(models.Model):
+class Postacie(models.Model):
 
-    name = models.CharField(max_length=60)
-    pseudonim = models.CharField(max_length=80, default='')
-    shirt_size = models.CharField(max_length=1, choices=SHIRT_SIZES, default=SHIRT_SIZES[0][0])
+    nazwa_postaci = models.CharField(max_length=60)
+    pseudonim_postaci = models.CharField(max_length=80, default='')
+    klasa_postaci = models.CharField(max_length=1, choices=KLASA_POSTACI, default=KLASA_POSTACI[0][0])
     month_added = models.IntegerField(choices=MONTHS.choices, default=MONTHS.choices[0][0])
-    team = models.ForeignKey(Team, null=True, blank=True, on_delete=models.SET_NULL)
+    druzyna = models.ForeignKey(Druzyna, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return f"Person: {self.name}, dodana w {self.month_added}, o rozmiarze koszuli {self.shirt_size}. \n"
+        return f"Person: {self.name}, dodana w {self.month_added}, o klasie postaci {self.klasa_postaci}. \n"
 
 
 class Osoba(models.Model):
@@ -42,8 +42,8 @@ class Osoba(models.Model):
         ("I", "Inna"),
     )
     
-    imie = models.CharField(max_length=40, blank = False, null = False)
-    nazwisko = models.CharField(max_length=60, blank = False, null = False)
+    imie = models.CharField(max_length=60, blank = False, null = False)
+    nazwisko = models.CharField(max_length=100, blank = False, null = False)
     plec = models.IntegerField(choices=PLCIE.choices, default=PLCIE.choices[2][0])
     stanowisko = models.ForeignKey("Stanowisko", on_delete = models.CASCADE)
     data_dodania = models.DateField(default= date.today, blank=False, null=True)
