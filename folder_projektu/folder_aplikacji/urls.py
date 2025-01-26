@@ -17,4 +17,6 @@ urlpatterns = [
     path('druzyny_html/', views.druzyna_list_html),
     path('druzyny/<int:id>/', views.druzyna_detail_html, name='druzyna_detail'),
     path('stanowisko/<int:pk>/members/', views.StanowiskoMemberView.as_view()),
+    path('api/logout/', views.LogoutView.as_view(), name='api_logout'),
+    path('druzyna/<int:pk>/', views.DruzynaDetail.as_view(), name='druzyna_detail'),
 ]

@@ -32,7 +32,7 @@ class Postacie(models.Model):
     druzyna = models.ForeignKey(Druzyna, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return f"Person: {self.name}, dodana w {self.month_added}, o klasie postaci {self.klasa_postaci}. \n"
+        return f"Person: {self.nazwa_postaci}, dodana w {self.month_added}, o klasie postaci {self.klasa_postaci}. \n"
 
 
 class Osoba(models.Model):
@@ -54,6 +54,9 @@ class Osoba(models.Model):
     
     class Meta:
         ordering = ['nazwisko']
+        permissions = [
+            ("view_postacie_other_owner", "Pozwala zobaczyć modele Postacie innych właścicieli"),
+        ]
 
 class Stanowisko(models.Model):
     nazwa = models.CharField(max_length=80, blank = False, null = False)

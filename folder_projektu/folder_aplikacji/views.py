@@ -6,11 +6,21 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import permission_required, login_required
 from .models import Osoba, Postacie, Stanowisko, Druzyna
+from .permissions import CustomDjangoModelPermissions
 from .serializers import OsobaSerializer, PostacieSerializer, StanowiskoSerializer, DruzynaSerializer
 from django.http import Http404, HttpResponse
+from django.contrib.auth import logout, login
 import datetime
 
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        logout(request)
+        return Response({"messege": "Wylogowano pomyślnie!"})
 
 @api_view(['GET'])
 def postacie_list(request):
@@ -24,6 +34,8 @@ def postacie_list(request):
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def postacie_detail(request, pk):
+    if not request.user.has_perm('folder_aplikacji.change_postacie'):
+        raise PermissionDenied()
     try:
         postacie = Postacie.objects.get(pk=pk)
     except Postacie.DoesNotExist:
@@ -69,7 +81,10 @@ def postacie_delete(request, pk):
 @permission_classes([IsAuthenticated])
 def osoba_list(request):
     if request.method == "GET":
-        osoby = Osoba.objects.filter(wlasciciel = request.user)
+        if not request.user.has_perm("folder.view_postacie_other_owner"):
+            osoby = Osoba.objects.filter(wlasciciel = request.user)
+        else:
+            osoby = Osoba.objects.all()
         serializer = OsobaSerializer(osoby, many=True)
         return Response(serializer.data)
 
@@ -138,6 +153,8 @@ def welcome_view(request):
         </body></html>"""
     return HttpResponse(html)
 
+@login_required
+@permission_required("folder_aplikacji.view_postacie")
 def postacie_list_html(request):
     postacie = Postacie.objects.all()
     return render(request,
@@ -197,4 +214,33 @@ class StanowiskoMemberView(APIView):
         osoby = Osoba.objects.filter(stanowisko = stanowisko)
         serializer = OsobaSerializer(osoby, many = True)
         return Response(serializer.data)
-        
+
+class DruzynaDetail(APIView):
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated, CustomDjangoModelPermissions]
+    def get_queryset(self):
+        return Druzyna.objects.all()
+
+    def get_object(self, pk):
+        try:
+            return Druzyna.objects.get(pk=pk)
+        except Druzyna.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        team = self.get_object(pk)
+        serializer = DruzynaSerializer(team)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        team = self.get_object(pk)
+        serializer = DruzynaSerializer(team, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        team = self.get_object(pk)
+        team.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
