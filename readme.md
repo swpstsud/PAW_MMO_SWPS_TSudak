@@ -36,3 +36,6 @@ Bazując na zapisie lab09 w moim wykonaniu, zacząłem przerabiać modele itp. p
 
 1/27/2025 - 00:24  
 Przerobiłem totalnie swój program pod lab10 aktualnie z projektem indywidualnym i zdecydowałem, że zrobię minimum na potrzebne zaliczenie, z uwagi na to jak męczący to proces i jak wiele razy coś popsułem i musiałem wracać komendą git checkout do punktu wyjścia. Jestem zmęczony, jedyny motywator do kontynuowania to zaliczenie przedmiotu... tyle.
+  
+27.01.2025 - 13:09  
+Update na jakieś próby postawienia register, ale nie działa, cały czas jest jakiś problem. Nie wiem co mam robić i co jest źle. Beznadzieja.  

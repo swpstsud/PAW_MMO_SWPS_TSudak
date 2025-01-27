@@ -23,4 +23,5 @@ urlpatterns = [
     path('folder_aplikacji/', include('folder_aplikacji.urls'),),
     path('accounts/', include('rest_framework.urls')),
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
+    path('folder_aplikacji', include('folder_aplikacji.urls')),
 ]

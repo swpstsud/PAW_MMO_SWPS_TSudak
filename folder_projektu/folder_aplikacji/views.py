@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
@@ -8,11 +8,15 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import permission_required, login_required
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
 from .models import Osoba, Postacie, Stanowisko, Druzyna
 from .permissions import CustomDjangoModelPermissions
 from .serializers import OsobaSerializer, PostacieSerializer, StanowiskoSerializer, DruzynaSerializer
 from django.http import Http404, HttpResponse
 from django.contrib.auth import logout, login
+from django.contrib import messages
+from django.conf import settings
 import datetime
 
 class LogoutView(APIView):
@@ -244,3 +248,49 @@ class DruzynaDetail(APIView):
         team = self.get_object(pk)
         team.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+@csrf_exempt   
+def register_user(request):
+    for template_setting in settings.TEMPLATES:
+        print(template_setting)
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+
+        if password != confirm_password:
+            messages.error(request, "Hasła muszą się zgadzać.")
+            return render(request, 'folder_aplikacji/register.html')
+
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Użytkownik o takiej nazwie już istnieje.")
+            return render(request, 'folder_aplikacji/register.html')
+
+
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Użytkownik z takim adresem e-mail już istnieje.")
+            return render(request, 'folder_aplikacji/register.html')
+
+
+        try:
+            user = User.objects.create_user(username=username, email=email, password=password)
+            user.save()
+
+            login(request, user)
+
+            messages.success(request, "Rejestracja przebiegła pomyślnie!")
+            return redirect('home')
+        except Exception as e:
+            messages.error(request, f"Błąd podczas rejestracji: {e}")
+            return render(request, 'folder_aplikacji/register.html')
+
+
+    return render(request, 'folder_aplikacji/register.html')
+
+def test_template(request):
+    return render(request, 'folder_aplikacji/register.html')
+
+def test_base(request):
+    return render(request, 'folder_aplikaji/base.html')
